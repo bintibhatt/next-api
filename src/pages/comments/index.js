@@ -24,6 +24,15 @@ function CommentsPage() {
     fetchComments();
   };
 
+  const deleteComment = async (commentId) => {
+    const response = await fetch(`/api/comments/${commentId}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log(data);
+    fetchComments();
+  };
+
   return (
     <div>
       <h1>Comments Page</h1>
@@ -32,18 +41,23 @@ function CommentsPage() {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
-      <br />
-      <br />
       <button onClick={submitComment}>Submit Comment</button>
-      <br />
-      <br />
-      {/* <button onClick={fetchComments}>Load Comments</button> */}
+      <br></br>
+      <br></br>
+      <button onClick={fetchComments}>Load Comments</button>
+      <br></br>
+      <br></br>
       {comments.map((comment) => (
         <div key={comment.id}>
           <p>
             {comment.id} {" -   "}
             {comment.text}
+            {" -   "}
+            {" -   "}
+            {" -   "}
+            <button onClick={() => deleteComment(comment.id)}>Delete</button>
           </p>
+          <br></br>
         </div>
       ))}
     </div>
